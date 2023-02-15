@@ -10,7 +10,7 @@ body{
 }
 body>section{
   width: 0;
-  padding: 10px;
+  padding: 100px;
 }
 body>.display-box{
   flex-grow: 4;
@@ -28,6 +28,9 @@ body>.nav-box{
   flex-grow: 1;
 }
 body>section > div{
+  display: flex;
+  border: solid #333 1px;
+  border-top: none;  
   margin-bottom : 20px;
   height: 150px;
   background-color: rgb(255, 245, 165);
@@ -95,31 +98,47 @@ section>.line-move,section>.block-move{
 }
 .line-move span{
   display: block;
+  width: 0;
   flex-grow: 0;
 }
 .line-move span:nth-child(1){
   width: 50%;
 }
 .line-move span:nth-child(2){
+  flex-grow: 0;
   cursor: col-resize;
   background-color: #b14d4d;
   height: 100%;
   width: 8px;
 }.line-move span:nth-child(3){
-
+  width: 0;
   flex-grow: 1;
 }
-.block-move >div{ 
+.block-move{
+  position: relative;
+}
+.block-move >ul{ 
   border: solid #555 1px;
   width: 50%;
   height: 100%;
-  display: flex;
-    justify-content: center;
-    align-items: center;
+
 }
-.block-move >div>div{ 
-  background-color: rgb(255,200,200);
+.block-move >ul>li{
   width: 50px;
   height: 50px;
   border: solid #333 1px;
+}
+
+
+.mouse-move{
+  position: relative;
+}
+.mouse-move > div{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  text-align: end;
+  color: #b14d4d;
+  font-weight: bold;
 }
