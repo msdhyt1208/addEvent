@@ -8,24 +8,35 @@ body{
     align-items: start;
     width: 100%;
 }
+section>.top{
+  width: 100%;
+  display: flex;
+  background:none;
+  height: auto;
+}
+section>.top>button{
+  flex: 1 1 100%;
+  margin: 0;
+  height: auto;
+  font-size: 3em;
+}
 body>section{
   width: 0;
-  padding: 100px;
+  padding: 10px 100px 100px;
 }
 body>.display-box{
-  flex-grow: 4;
+  flex: 4 1;
 }
 
 body>.border{
   margin: 0 10px;
-  flex-grow: 0;
+  flex: 0 0 5px;
     background-color: rgb(18, 18, 18);
    height: 100vh;
    padding: 0;
-   width: 5px;
 }
 body>.nav-box{
-  flex-grow: 1;
+  flex: 1 4;
 }
 body>section > div{
   display: flex;
@@ -39,7 +50,7 @@ body .addremove{
   overflow: scroll;
 }
 
-p{
+section > p{
   text-align: center;
   background-color: rgb(222, 222, 222);
   border-top-left-radius: 70%;
@@ -104,10 +115,12 @@ section>.line-move,section>.block-move{
 .line-move span:nth-child(1){
   width: 50%;
 }
-.line-move span:nth-child(2){
+.line-move .line{
   flex-grow: 0;
   cursor: col-resize;
-  background-color: #b14d4d;
+  background-color: rgb(200, 255, 255);
+  border:solid 1px rgb(111, 139, 139);
+  border-bottom:none;
   height: 100%;
   width: 8px;
 }.line-move span:nth-child(3){
@@ -130,15 +143,47 @@ section>.line-move,section>.block-move{
 }
 
 
+
 .mouse-move{
-  position: relative;
-}
-.mouse-move > div{
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  text-align: end;
+  display: flex;
+    align-items: end;
+    justify-content: end;
   color: #b14d4d;
   font-weight: bold;
+}
+.scroll ul{
+  display: flex;
+  flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+  }
+.scroll li{
+  box-sizing: content-box;
+  flex-basis: 8%;
+  flex-shrink: 1;
+  background: none;
+  margin: 0 10px;
+  box-shadow: 3px 3px 3px rgb(200, 200, 200);
+}
+.scroll li:nth-child(7n+1){
+  background-color: rgb(255, 200, 200) ;
+}
+.scroll li:nth-child(7n+2){
+  background-color: rgb(255, 236, 200) ;
+}
+.scroll li:nth-child(7n+3){
+  background-color: rgb(229, 255, 200) ;
+}
+.scroll li:nth-child(7n-3){
+  background-color: rgb(200, 255, 225) ;
+}
+.scroll li:nth-child(7n-2){
+  background-color: rgb(200, 246, 255) ;
+}
+.scroll li:nth-child(7n-1){
+  background-color: rgb(216, 200, 255) ;
+}
+.scroll li:nth-child(7n){
+  background-color: rgb(255, 200, 234) ;
 }
