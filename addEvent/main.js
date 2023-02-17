@@ -138,23 +138,15 @@ for(let i = 0;i<10;i++){
   li[i].parentElement.appendChild(crLi);
 }
 scrollBox.addEventListener("wheel", function(event){
-  const target = this.firstElementChild;
-
-  sl -= event.wheelDelta/1;
-  console.dir(target)
-  if(sl <= 0)   sl += scrollWidth;
-  else if(sl >= scrollWidth)
-                sl -= scrollWidth;
-  target.scrollLeft = sl;
-  event.preventDefault();
+  wheel(this,1,event);
 })
 
 
-function wheel(speed){
-  const target = scrollBox.firstElementChild;
+function wheel(addThis,speed,event){
+  const target = addThis.firstElementChild;
 
-  sl += speed ;
-  console.dir(target)
+  sl += speed*event.wheelDelta ;
+  console.dir(event.wheelDelta)
   if(sl <= 0)   sl += scrollWidth;
   else if(sl >= scrollWidth)
                 sl -= scrollWidth;
@@ -162,11 +154,8 @@ function wheel(speed){
   event.preventDefault();
 }
 let n=0;
-setInterval(function(){wheel(10)},10)
-function dis(){
-  console.log(n);
-  n++;
-}
+// setInterval(function(){wheel(10,1)},10)
+
 
 
 
