@@ -127,34 +127,49 @@ mousePosition.addEventListener("mousemove",function(e){
 
 
 
-const scrollBox =  document.querySelector(".scroll");
-let sl = scrollBox.firstElementChild.scrollLeft;
-const scrollWidth = scrollBox.firstElementChild.scrollWidth;
+const scrollBox =  document.querySelector(".scroll>ul");
+const scrollWidth = scrollBox.scrollWidth;
 
 const li = document.querySelectorAll(".scroll li");
-for(let i = 0;i<10;i++){
+for(let i = 0;i<5;i++){
   const crLi = document.createElement("li");
+  crLi.textContent = li[(li.length-1-i)].textContent;
+  crLi.cloneNode(li[li.length-1-i]);
+  li[i].parentElement.appendChild(crLi);
+  scrollBox.insertBefore(crLi,scrollBox.firstChild);
+} 
+for(let i = 0;i<5;i++){
+  const crLi = document.createElement("li");
+  crLi.textContent = li[i].textContent;
   crLi.cloneNode(li[i]);
   li[i].parentElement.appendChild(crLi);
 }
+
+const scrollStart = (scrollBox.scrollWidth - scrollWidth) / 2;
+const scrollEnd = scrollWidth + scrollStart;
+scrollBox.scrollLeft =  scrollStart;
 scrollBox.addEventListener("wheel", function(event){
-  wheel(this,1,event);
+  wheel(this,100,event.wheelDelta);
+  event.preventDefault();
+})
+scrollBox.addEventListener("scroll", function(event){
+  scroll(this);
+  event.preventDefault();
 })
 
-
-function wheel(addThis,speed,event){
-  const target = addThis.firstElementChild;
-
-  sl += speed*event.wheelDelta ;
-  console.dir(event.wheelDelta)
-  if(sl <= 0)   sl += scrollWidth;
-  else if(sl >= scrollWidth)
-                sl -= scrollWidth;
-  target.scrollLeft = sl;
-  event.preventDefault();
+function wheel(target,speed,wheel){
+  target.scrollLeft += speed*wheel/150 ;
 }
-let n=0;
-// setInterval(function(){wheel(10,1)},10)
+
+function scroll(target){
+
+  console.dir(event.scrollLeft)
+  if     (target.scrollLeft <= scrollStart)
+      target.scrollLeft += scrollWidth;
+  else if(target.scrollLeft > scrollEnd)
+      target.scrollLeft -= scrollWidth;
+}  
+// setInterval(function(){wheel(scrollBox,1,-50)},100)
 
 
 
