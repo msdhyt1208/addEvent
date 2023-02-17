@@ -1,3 +1,18 @@
+const page = {
+  querySelectorAll: document.querySelectorAll(".top > button"),
+  addEvent:function(i,target){
+    console.log(i)
+    target.parentNode.parentNode.className= "page"+(i+1);
+  }
+}
+for(let i =0;i<page.querySelectorAll.length;i++){
+  console.log("page"+page.querySelectorAll.length);
+  page.querySelectorAll[i].addEventListener("click",function(){
+    page.addEvent(i,page.querySelectorAll[i])
+  })
+}
+
+
 const addBtn = document.querySelectorAll(".add>button");
 const removeBtn = document.querySelectorAll(".remove>button");
 const ul = document.querySelector("ul");
@@ -112,14 +127,46 @@ mousePosition.addEventListener("mousemove",function(e){
 
 
 
-// const scrollBox =  document.querySelector(".scroll");
-// scrollBox.addEventListener("scroll", function(event){
-//   console.log(event);
-// });
+const scrollBox =  document.querySelector(".scroll");
+let sl = scrollBox.firstElementChild.scrollLeft;
+const scrollWidth = scrollBox.firstElementChild.scrollWidth;
+
+const li = document.querySelectorAll(".scroll li");
+for(let i = 0;i<10;i++){
+  const crLi = document.createElement("li");
+  crLi.cloneNode(li[i]);
+  li[i].parentElement.appendChild(crLi);
+}
+scrollBox.addEventListener("wheel", function(event){
+  const target = this.firstElementChild;
+
+  sl -= event.wheelDelta/1;
+  console.dir(target)
+  if(sl <= 0)   sl += scrollWidth;
+  else if(sl >= scrollWidth)
+                sl -= scrollWidth;
+  target.scrollLeft = sl;
+  event.preventDefault();
+})
 
 
+function wheel(speed){
+  const target = scrollBox.firstElementChild;
 
-
+  sl += speed ;
+  console.dir(target)
+  if(sl <= 0)   sl += scrollWidth;
+  else if(sl >= scrollWidth)
+                sl -= scrollWidth;
+  target.scrollLeft = sl;
+  event.preventDefault();
+}
+let n=0;
+setInterval(function(){wheel(10)},10)
+function dis(){
+  console.log(n);
+  n++;
+}
 
 
 
