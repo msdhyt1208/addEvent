@@ -203,3 +203,14 @@ section>.line-move,section>.block-move{
 .scroll li:nth-child(5n){
   background-color: rgb(200, 246, 255) ;
 }
+
+.drow{
+  position: relative;
+}
+.draw>div{
+  position: absolute;
+  background-color: rgb(200, 255, 255);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
