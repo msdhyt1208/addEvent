@@ -76,21 +76,26 @@ addRemove();
 
 function lineMove(){
   const drag = document.querySelector(".line-move");
-  const move = document.querySelectorAll(".line-move span");
+  const move = document.querySelector(".line-move span");
   let lineselect = null;
   drag.addEventListener("dragstart",function(event){
-    if(event.target === lineMove[1])  lineselect = true;
+    lineselect = true;
+    sa = event.clientX-event.target.offsetLeft;
   })
   drag.addEventListener("dragover",function(event){
-    
-    if(lineselect){
-      move[0].style.width = event.clientX-100 + "px";
-      event.preventDefault();
-    }
+
+    event.preventDefault();    
   })
   drag.addEventListener("drop",function(event){
     event.preventDefault();
-    if(lineselect)    lineselect = false;
+    if(lineselect){
+      if(event.clientX-sa < 0 || event.clientX-sa > this.scrollWidth)  return;
+      if(lineselect ){
+        move.style.left = event.clientX-sa+ "px";
+        
+      }
+      lineselect = false;
+    }    
   })
 }
 lineMove();
@@ -130,59 +135,46 @@ mousePosition();
 
 // スクロール
 scroll={
-  scrollBox:null,
-  li:null,
-  scrollEnd:null,
-  scrollWidth:null,
-
+  scrollBox : document.querySelector(".scroll>ul"),
+  li :        document.querySelectorAll(".scroll li"),
+  scrollWidth :null,
+  scrollStart : 150,
+  scrollEnd : null,
   action:function(){
-    this.scrollBox = document.querySelector(".scroll>ul");
-    this.li =        document.querySelectorAll(".scroll li");
     this.scrollWidth = this.scrollBox.scrollWidth;
-    this.addbox(this.li);
     this.scrollEnd = this.scrollWidth + this.scrollStart;
+    this.addbox();
     this.scrollBox.scrollLeft =  this.scrollWidth-10;
-    this.wheel.addEventListener(this.scrollBox);
-    this.scroll.addEventListener(this.scrollBox);
+    this.wheel();
+    this.scroll();
   },
-  addbox: function(li) {
-    console.log(li.length);
+  addbox: function() {
+    console.log(this.li.length);
     for(let i = 0;i<10;i++){
       const crLi = document.createElement("li");
-      console.log(li.length);
-      crLi.textContent = li[i].textContent;
-      crLi.cloneNode(li[i]);
-      li[i].parentElement.appendChild(crLi);
+      console.log(this.li.length);
+      crLi.textContent = this.li[i].textContent;
+      crLi.cloneNode(this.li[i]);
+      this.li[i].parentElement.appendChild(crLi);
     }
   },
-  wheel : {
-    whThis:this,
-    addEventListener:function(){
-      aThis = this;
-      scroll.scrollBox.addEventListener("wheel", function(event){
-       scroll.wheel.action(this,100,event.wheelDelta);
-        event.preventDefault();
-      })
-    },
-    action:function(target,speed,wheel){
-      target.scrollLeft += speed*wheel/150 ;
-    }
+  wheel : function(){
+    this.scrollBox.addEventListener("wheel", function(event){
+      this.scrollLeft += event.wheelDelta/3 ;
+      event.preventDefault();
+    })
   },
-  scroll:{
-    addEventListener:function(scrollBox){
-      aThis = this;
-      scrollBox.addEventListener("scroll", function(event){
-        aThis.action(this,aThis);
-        event.preventDefault();
-      })
-    },
-    action:function(target,scThis){
-      console.dir(target.scrollLeft);
-    if     (target.scrollLeft <= scThis.scrollStart)
-        target.scrollLeft += scrollWidth;
-    else if(target.scrollLeft > scThis.scrollEnd)
-        target.scrollLeft -= scrollWidth;      
-    }
+  
+  scroll:function(){
+    th = this;
+    this.scrollBox.addEventListener("scroll", function(event){
+      console.log(`${this.scrollLeft}::${th.scrollWidth}::${th.scrollEnd}`);
+      if     (this.scrollLeft <= th.scrollStart)
+          this.scrollLeft += th.scrollWidth;
+      if    (this.scrollLeft > th.scrollEnd)
+          this.scrollLeft -= th.scrollWidth;      
+      event.preventDefault();
+    })
   }
 }
 scroll.action();
@@ -197,28 +189,29 @@ function mausedrow(){
     drowErea.appendChild(crSq);
     console.dir(crSq)
   })
-  // drowErea.addEventListener("dragstart",function(event){
+  drowErea.addEventListener("dragstart",function(event){
 
-  //   drowSlect = true;
-  //   console.log("sdfghjk");
-  // })
-  // drowErea.addEventListener("dragover",function(event){
-  //   setInterval(function(){
-  //     if(drowSlect){
-  //       crSq = document.createElement("div");
-  //       crSq.style.top = event.clientY+"px";
-  //       crSq.style.left = event.clientX+"px";
-  //       drowErea.appendChild(crSq);
-  //     }
-  //   },10)
-  //   event.preventDefault();
-  // })
-  // drowErea.addEventListener("drop",function(event){
-  //   drowSlect = false;
-  //   event.preventDefault();
-  // })
+    drowSlect = true;
+    console.log("sdfghjk");
+  })
+  drowErea.addEventListener("dragover",function(event){
+    setInterval(function(){
+      if(drowSlect){
+        crSq = document.createElement("div");
+        crSq.style.top = event.clientY+"px";
+        crSq.style.left = event.clientX+"px";
+        drowErea.appendChild(crSq);
+      }
+    },1)
+    event.preventDefault();
+  })
+  drowErea.addEventListener("drop",function(event){
+
+    drowSlect = false;
+    event.preventDefault();
+  })
 }
-mausedrow();
+// mausedrow();
 
 
 

@@ -122,40 +122,50 @@ button{
 
 
 section>.line-move,section>.block-move{
+  position: relative;
   display: flex;
   border: solid #333 1px;
-  border-top: none;  
 }
 .line-move span{
-  display: block;
-  width: 0;
-  flex-grow: 0;
-}
-.line-move span:nth-child(1){
-  width: 50%;
-}
-.line-move .line{
-  flex-grow: 0;
-  cursor: col-resize;
+  position: absolute;
+  display: flex;
+
   background-color: rgb(200, 255, 255);
   border:solid 1px rgb(111, 139, 139);
-  border-bottom:none;
+}
+
+.line-move >.row{
+  top: 0;
+  left: 50%;
+  width: 5px;
   height: 100%;
-  width: 8px;
-}.line-move span:nth-child(3){
-  width: 0;
-  flex-grow: 1;
+  /* margin: 0 10px; */
+  cursor: col-resize;
+}
+.line-move >.colmun{
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  cursor: row-resize;
+}
+.line-move >.select{
+  display: none;
+
 }
 .block-move{
   position: relative;
 }
-.block-move >ul{ 
+.block-move >ul{
+  display: flex;
+  flex-wrap: wrap;
   border: solid #555 1px;
   width: 50%;
   height: 100%;
 
 }
 .block-move >ul>li{
+
   width: 50px;
   height: 50px;
   border: solid #333 1px;
