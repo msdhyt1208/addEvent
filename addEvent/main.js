@@ -137,12 +137,10 @@ mousePosition();
 scroll={
   scrollBox : document.querySelector(".scroll>ul"),
   li :        document.querySelectorAll(".scroll li"),
-  scrollWidth :null,
   scrollStart : 150,
-  scrollEnd : null,
   action:function(){
-    this.scrollWidth = this.scrollBox.scrollWidth;
-    this.scrollEnd = this.scrollWidth + this.scrollStart;
+    this[`scrollWidth`] = this.scrollBox.scrollWidth;
+    this[`scrollEnd`] = this.scrollWidth + this.scrollStart;
     this.addbox();
     this.scrollBox.scrollLeft =  this.scrollWidth-10;
     this.wheel();
